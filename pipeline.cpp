@@ -71,8 +71,9 @@ int main(int argc, char* args[]) {
   while (continueSimulation && (clockCycle <= TOTALCYCLE)) {
     // - Call the process function of each stage.
     // - You need to determine whether you should call the process
-    //   function starting from the WB stage or FETCH stage.   
-    clockCycle++;
+    //   function starting from the WB stage or FETCH stage.
+    	stages[clockCycle%5]->process();   
+    	clockCycle++;
   }
 
   cout << "Name: Rajiv Shanmugam Madeswaran, ID: cxk437" << endl;
@@ -337,8 +338,7 @@ void initialize(int choice) {
     cout << "No program exists!!!"<< endl;
     assert(0);
     break;
-  }
-  
+  }	
 }
 
 void finalize() {
