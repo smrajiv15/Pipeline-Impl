@@ -7,9 +7,20 @@ DecodeStage::DecodeStage(StageType _type, AbstractStage *_prevStage) : AbstractS
   assert(prevStage->getType() == IF);
 }
 
-void DecodeStage::process() {
+void DecodeStage::process() {	
+			
+	Instruction inst;
+	InstructionType it;
+
 	setInstruction(this->prevStage->getInstruction());
-	this->prevStage->process();		
+	it = getInstruction().getType();
+
+	if(it == HLT || it == NOP) {
+		this->prevStage->setInstruction(inst);
+		return;
+	}
+		
+	this->prevStage->process();
 }
 
 DecodeStage::~DecodeStage() {

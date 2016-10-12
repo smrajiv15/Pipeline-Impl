@@ -13,10 +13,6 @@ void FetchStage::process() {
 	cur_pc += 4;
 	setPc(cur_pc);
 	incStatistics(FETCHEDINS);
-
-	if((getInstruction().getType()) == HLT) {
-		stopSimulation();
-	}
 }
 
 FetchStage::~FetchStage() {
