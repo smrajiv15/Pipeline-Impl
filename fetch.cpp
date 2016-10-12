@@ -8,13 +8,13 @@ FetchStage::FetchStage(StageType _type, AbstractStage *_prevStage) : AbstractSta
 void FetchStage::process() {
   // process for this step
   int cur_pc = getPc();
-	Instruction cur_inst = getNextIns();
+	setInstruction(getNextIns());
 
 	cur_pc += 4;
 	setPc(cur_pc);
 	incStatistics(FETCHEDINS);
 
-	if(cur_inst.getType() == HLT) {
+	if((getInstruction().getType()) == HLT) {
 		stopSimulation();
 	}
 }

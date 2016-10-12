@@ -6,6 +6,8 @@ ExecuteStage::ExecuteStage(StageType _type, AbstractStage *_prevStage) : Abstrac
 }
 
 void ExecuteStage::process() {
+	setInstruction(this->prevStage->getInstruction());
+	this->prevStage->process();	
 }
 
 ExecuteStage::~ExecuteStage() {

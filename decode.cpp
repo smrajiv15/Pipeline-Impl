@@ -8,6 +8,8 @@ DecodeStage::DecodeStage(StageType _type, AbstractStage *_prevStage) : AbstractS
 }
 
 void DecodeStage::process() {
+	setInstruction(this->prevStage->getInstruction());
+	this->prevStage->process();		
 }
 
 DecodeStage::~DecodeStage() {

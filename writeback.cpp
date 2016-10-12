@@ -6,6 +6,8 @@ WritebackStage::WritebackStage(StageType _type, AbstractStage *_prevStage) : Abs
 }
 
 void WritebackStage::process() {
+	setInstruction(this->prevStage->getInstruction());
+	this->prevStage->process();	
 }
 
 WritebackStage::~WritebackStage() {

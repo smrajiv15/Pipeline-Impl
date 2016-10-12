@@ -6,6 +6,8 @@ MemaccessStage::MemaccessStage(StageType _type, AbstractStage *_prevStage) : Abs
 }
 
 void MemaccessStage::process() {
+	setInstruction(this->prevStage->getInstruction());
+	this->prevStage->process();	
 }
 
 MemaccessStage::~MemaccessStage() {
