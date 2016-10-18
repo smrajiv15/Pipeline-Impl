@@ -72,12 +72,8 @@ int main(int argc, char* args[]) {
     // - Call the process function of each stage.
     // - You need to determine whether you should call the process
     //   function starting from the WB stage or FETCH stage.
+    			stages[WR]->process();
   
-			if(clockCycle == 1) {
-    		stages[0]->process();
-			} else {
-				stages[4]->process();
-			}   
     	clockCycle++;
   }
 

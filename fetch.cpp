@@ -8,8 +8,9 @@ FetchStage::FetchStage(StageType _type, AbstractStage *_prevStage) : AbstractSta
 void FetchStage::process() {
   // process for this step
   int cur_pc = getPc();
+	
 	setInstruction(getNextIns());
-
+	getInstruction().setFetchedAtCycle(getCycle());		
 	cur_pc += 4;
 	setPc(cur_pc);
 	incStatistics(FETCHEDINS);

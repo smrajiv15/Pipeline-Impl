@@ -6,20 +6,26 @@ WritebackStage::WritebackStage(StageType _type, AbstractStage *_prevStage) : Abs
 }
 
 void WritebackStage::process() {
-	InstructionType it;
-	setInstruction(this->prevStage->getInstruction());
-	
-	it = getInstruction().getType();
 
-	if(it != NOP) {
+	setInstruction(prevStage->getInstruction());
+	Instruction inst = getInstruction();
+
+	if(inst.isAluReg() || inst.isAluImm()) {
+		setReg(inst.getArg1(), inst.getAluOut());
+	} else if(inst.isLoad()) {
+		setReg(inst.getArg1(), inst.getLoadMemData());
+	}
+
+	if(!inst.isNop()) {
 		incStatistics(FINISHEDINS);
 	}
 
-	if(it == HLT) {
+	if(inst.isHlt()) {
 		stopSimulation();
 	}
 	
-	this->prevStage->process();
+	setInstruction(inst);	
+	prevStage->process();
 }
 
 WritebackStage::~WritebackStage() {
