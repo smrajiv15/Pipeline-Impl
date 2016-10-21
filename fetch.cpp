@@ -18,17 +18,19 @@ void FetchStage::process() {
 	
 	if(!halt_flag) {
 		setInstruction(getNextIns());
-		cout << "FNH: Inst type:" << getInstruction().getType() << " CC = " << getCycle() << " PC: " << getPc() <<  endl; 
 	} 
 
 	if(branch_found == 1) {
 		Instruction ins;
 		setInstruction(ins);
 		incStatistics(STALLCYCLE);
-		cout << "FB: Inst type:" << getInstruction().getType() << " CC = " << getCycle() << " PC: " << getPc() <<  endl; 
 		return;
 	}
-	
+
+	if(halt_flag) {
+		incStatistics(STALLCYCLE);
+	}	
+
 	if(getInstruction().getType() == HLT) {
 		halt_flag = 1;
 	}
@@ -36,7 +38,6 @@ void FetchStage::process() {
 	getInstruction().setFetchedAtCycle(getCycle());		
 	cur_pc += 4;
 	setPc(cur_pc);
-	cout << "F: UP PC" << getPc() << endl;
 }
 
 FetchStage::~FetchStage() {

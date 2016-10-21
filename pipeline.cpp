@@ -72,10 +72,7 @@ int main(int argc, char* args[]) {
     // - Call the process function of each stage.
     // - You need to determine whether you should call the process
     //   function starting from the WB stage or FETCH stage.
-    			stages[WR]->process();
-		for (i = 1; i < TOTAL_REGISTER_TYPE; i++)
-    cout << registerNames[i] << " " << getReg((RegisterType)i) << endl;
-
+    stages[WR]->process();
     clockCycle++;
   }
 
@@ -83,7 +80,7 @@ int main(int argc, char* args[]) {
   cout << "Fetched ins " << fetchedIns << endl;
   cout << "Finished ins " << finishedIns << endl;
   cout << "Total cycles " << (clockCycle - 1) << endl;
-  cout << "Stall cycles " << stallCycle << endl;
+  cout << "Stall cycles "<< stallCycle << endl;
   for (i = 1; i < TOTAL_REGISTER_TYPE; i++)
     cout << registerNames[i] << " " << getReg((RegisterType)i) << endl;
   

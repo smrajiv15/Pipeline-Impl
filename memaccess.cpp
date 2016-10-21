@@ -29,7 +29,6 @@ void MemaccessStage::process() {
 		branch_found = 0;
 	}
 
-	cout << "MEM: " << inst.getType() << "CC: " << getCycle() << endl;
 	setInstruction(inst);
 	prevStage->process();	
 }

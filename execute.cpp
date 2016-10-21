@@ -14,7 +14,6 @@ void ExecuteStage::process() {
 	if(prevStage->isStalled()) {
 		Instruction d_inst;
 		setInstruction(d_inst);
-		cout << "PS - EXE: " << d_inst.getType() << "CC: " << getCycle() << endl;
 		prevStage->process();
 		return;
 	} else {
@@ -26,7 +25,6 @@ void ExecuteStage::process() {
 		res = 0;
 	}
 	
-	cout << "EXE: " << inst.getType() << "CC: " << getCycle() << endl;
 	if(inst.isAluReg()) {
 		if(it == ADD) {
 			res = a + b;

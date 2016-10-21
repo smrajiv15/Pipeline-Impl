@@ -24,7 +24,6 @@ void DecodeStage::process() {
 	it = getInstruction().getType();
 	inst = getInstruction();
 	
-	cout << "D: " << inst.getType() << "CC: " << getCycle() << endl;
 	
 	if(isStalled()) {
 		wb_stage = nextStage->getNextStage()->getNextStage();
@@ -48,7 +47,6 @@ void DecodeStage::process() {
 			prevStage->process();
 			return;
 		} else {
-			cout << "D: Unstalled" << endl;
 			setUnstalled();
 			dep_res = true;
 			goto fetch_op;
@@ -59,9 +57,7 @@ void DecodeStage::process() {
 	while(st != NULL && st->getType() != WR) {
 		Instruction nxt_inst = st->getInstruction();
 		if(nxt_inst.getType() && inst.getType() && inst.isDataDependent(nxt_inst)) {
-			cout << "D: stalled" << endl;
 			incStatistics(STALLCYCLE);
-//			prevStage->process();
 			setStalled();
 			setInstruction(inst);
 			return;
