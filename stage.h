@@ -54,13 +54,14 @@ class AbstractStage {
 
     void setUnstalled();
 
-    void updateDependences(int _srcCycle);
+    bool updateDependences(int _srcCycle);
 
     void setInstruction(Instruction& _ins);
  
     Instruction& getInstruction();
 
     inline AbstractStage* getPrevStage() { return prevStage; }
+    inline AbstractStage* getNextStage() { return nextStage; }
 
     static inline void setPtrGetPc(int (*_getPc)()) { getPc = _getPc; }
     static inline void setPtrSetPc(void (*_setPc)(int)) { setPc = _setPc; }

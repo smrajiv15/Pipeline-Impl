@@ -73,8 +73,10 @@ int main(int argc, char* args[]) {
     // - You need to determine whether you should call the process
     //   function starting from the WB stage or FETCH stage.
     			stages[WR]->process();
-  
-    	clockCycle++;
+		for (i = 1; i < TOTAL_REGISTER_TYPE; i++)
+    cout << registerNames[i] << " " << getReg((RegisterType)i) << endl;
+
+    clockCycle++;
   }
 
   cout << "Name: Rajiv Shanmugam Madeswaran, ID: cxk437" << endl;
@@ -142,29 +144,29 @@ void initialize(int choice) {
     i+=4;
     imem[i/4] = new Instruction(ST, R1, R2, 0, i);
     i+=4;
-    imem[i/4] = new Instruction(MUL, R4, R1, R5, i);
+	  imem[i/4] = new Instruction(MUL, R4, R1, R5, i);
     i+=4;
     imem[i/4] = new Instruction(ST, R4, R3, 0, i);
     i+=4;
-    imem[i/4] = new Instruction(SUBI, R2, R2, 4, i);
+	  imem[i/4] = new Instruction(SUBI, R2, R2, 4, i);
     i+=4;
-    imem[i/4] = new Instruction(SUBI, R3, R3, 4, i);
+		imem[i/4] = new Instruction(SUBI, R3, R3, 4, i);
     i+=4;
-    imem[i/4] = new Instruction(SUBI, R1, R1, 1, i);
+	  imem[i/4] = new Instruction(SUBI, R1, R1, 1, i);
     i+=4;
-    imem[i/4] = new Instruction(BNEQZ, R1, -7, i);
+	  imem[i/4] = new Instruction(BNEQZ, R1, -7, i);
     i+=4;
-    imem[i/4] = new Instruction(ADDI, R1, R0, 10, i);
+	  imem[i/4] = new Instruction(ADDI, R1, R0, 10, i);
     i+=4;
     imem[i/4] = new Instruction(ADDI, R2, R0, 196, i);
     i+=4;
-    imem[i/4] = new Instruction(ADDI, R3, R0, 396, i);
+	  imem[i/4] = new Instruction(ADDI, R3, R0, 396, i);
     i+=4;
-    imem[i/4] = new Instruction(ADDI, R4, R0, 596, i);
+	  imem[i/4] = new Instruction(ADDI, R4, R0, 596, i);
     i+=4;
-    imem[i/4] = new Instruction(LD, R5, R2, 0, i);
-    i+=4;
-    imem[i/4] = new Instruction(LD, R6, R3, 0, i);
+	  imem[i/4] = new Instruction(LD, R5, R2, 0, i);
+    i+=4; //tested
+		imem[i/4] = new Instruction(LD, R6, R3, 0, i);
     i+=4;
     imem[i/4] = new Instruction(ADD, R5, R5, R6, i);
     i+=4;
@@ -183,7 +185,7 @@ void initialize(int choice) {
     imem[i/4] = new Instruction(SUBI, R1, R1, 1, i);
     i+=4;
     imem[i/4] = new Instruction(BNEQZ, R1, -11, i);
-    i+=4;
+    i+=4; 
     imem[i/4] = new Instruction(HLT, i);
     break; 
   

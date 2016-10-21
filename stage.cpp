@@ -57,9 +57,15 @@ void AbstractStage::setUnstalled() {
     prevStage->setUnstalled();
 }
 
-void AbstractStage::updateDependences(int _srcCycle) {
+bool AbstractStage::updateDependences(int _srcCycle) {
   // This function is used to notify (and possibly unstall) the consumer instruction that was stalled
   // due to the current instruction (i.e., producer instruction) of this stage
+	
+	if(_srcCycle == this->ins.getFetchedAtCycle()) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 void AbstractStage::setInstruction(Instruction& _ins) {

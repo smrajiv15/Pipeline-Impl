@@ -6,13 +6,27 @@ ExecuteStage::ExecuteStage(StageType _type, AbstractStage *_prevStage) : Abstrac
 }
 
 void ExecuteStage::process() {
-	setInstruction(prevStage->getInstruction());
-	Instruction inst = getInstruction();
-	InstructionType it = inst.getType();
-	int a = inst.getA(); 
-	int b = inst.getB();
-	int res = 0;
 	
+	int a, b, res = 0;
+	InstructionType it;
+	Instruction inst;		
+
+	if(prevStage->isStalled()) {
+		Instruction d_inst;
+		setInstruction(d_inst);
+		cout << "PS - EXE: " << d_inst.getType() << "CC: " << getCycle() << endl;
+		prevStage->process();
+		return;
+	} else {
+		setInstruction(prevStage->getInstruction());
+		inst = getInstruction();
+		it = inst.getType();
+		a = inst.getA(); 
+		b = inst.getB();
+		res = 0;
+	}
+	
+	cout << "EXE: " << inst.getType() << "CC: " << getCycle() << endl;
 	if(inst.isAluReg()) {
 		if(it == ADD) {
 			res = a + b;

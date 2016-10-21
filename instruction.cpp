@@ -72,7 +72,51 @@ void Instruction::clear() {
 // This should be used for detecting hazard between in ID stage
 // instruction and later stage instruction
 bool Instruction::isDataDependent(Instruction& src, Instruction& dest) {
-  return false;
+
+  bool is_dep = false;
+	int fet_cycle = dest.getFetchedAtCycle();
+
+	if(dest.isAluImm() || dest.isAluReg() || dest.getType() == LD) { // if destination is ALU IMM & ALU REG
+		if(src.isAluReg()) {
+			if(src.getArg2() == dest.getArg1()) {
+				src.setSrcCycle1(fet_cycle);	
+				is_dep = true;
+			} 
+			if(src.getArg3() == dest.getArg1()) {
+				src.setSrcCycle2(fet_cycle);
+				is_dep = true;
+			}
+		} else if(src.isAluImm()) {
+			if(src.getArg2() == dest.getArg1()) {
+				src.setSrcCycle1(fet_cycle);
+				is_dep = true;
+			}
+		} else if(src.isBranch()) {
+			if(src.getArg1() == dest.getArg1()) {
+				src.setSrcCycle1(fet_cycle);
+				is_dep = true;
+			}
+		} else if(src.isMemory()) {
+			if(src.getType() == LD) {
+				if(src.getArg2() == dest.getArg1()) {
+					src.setSrcCycle1(fet_cycle);
+					is_dep = true;
+				}
+			} else { //store instruction
+				if(src.getArg1() == dest.getArg1()) {
+					src.setSrcCycle1(fet_cycle);
+					is_dep = true;
+				}
+
+				if(src.getArg2() == dest.getArg1()) {
+					src.setSrcCycle2(fet_cycle);
+					is_dep = true;
+				}
+			}
+		}		
+	
+	return is_dep;
+	}
 }
 
 Instruction::~Instruction() {

@@ -1,6 +1,8 @@
 #include <cassert>
 #include "memaccess.h"
 
+extern int branch_found;
+
 MemaccessStage::MemaccessStage(StageType _type, AbstractStage *_prevStage) : AbstractStage(_type, _prevStage) {
   assert(prevStage->getType() == EX);
 }
@@ -21,11 +23,13 @@ void MemaccessStage::process() {
 		setData(inst.getAluOut(), reg_val);	
 
 	} else if(inst.isBranch()) {
-		if(inst.getA() == 0 || inst.getA() != 0) {
-			setPc(getPc() + inst.getAluOut());
+		if(((inst.getA() == 0) && (inst.getType() == BEQZ)) || ((inst.getA() != 0) && (inst.getType() == BNEQZ))) {
+				setPc(getPc() + inst.getAluOut());
 		}
+		branch_found = 0;
 	}
 
+	cout << "MEM: " << inst.getType() << "CC: " << getCycle() << endl;
 	setInstruction(inst);
 	prevStage->process();	
 }

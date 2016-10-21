@@ -16,7 +16,11 @@ void WritebackStage::process() {
 		setReg(inst.getArg1(), inst.getLoadMemData());
 	}
 
+	cout << "CC: " << getCycle() << endl;
+	cout << "WB: IT= " << inst.getType() << endl;
+
 	if(!inst.isNop()) {
+		incStatistics(FETCHEDINS);
 		incStatistics(FINISHEDINS);
 	}
 
