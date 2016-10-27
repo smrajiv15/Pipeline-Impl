@@ -1,0 +1,5 @@
+//Pipeline Implementation with freezing strategy in case of data dependency
+
+Step to run:
+1. Run the make file inside the project. As a result it creates an executable called pipeline.
+2. then run ./pipleline PROGRAM_NUMBER. Program is included in pipeline.cpp. Available range [1-6]
